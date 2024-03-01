@@ -34,6 +34,7 @@ void cipher_encrypt(const CipherState* self, const uint8_t* in, uint8_t* out, co
 			u8arr_xor(out + offset - block_len, block_len, in_var + offset);
 			encrypt_func(key_set, in_var + offset, out + offset);
 		}
+		free(in_var);
 		break;
 	}
 	case CFB:
@@ -81,6 +82,7 @@ void cipher_decrypt(const CipherState* self, const uint8_t* in, uint8_t* out, co
 			decrypt_func(key_set, in_var + offset, out + offset);
 			u8arr_xor(in_var + offset - block_len, block_len, out + offset);
 		}
+		free(in_var);
 		break;
 	}
 	case CFB:
